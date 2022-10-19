@@ -6,7 +6,7 @@ import { ButtonLeft, ButtonRight, HomeContainer, Product } from '../styles/pages
 import { useKeenSlider } from 'keen-slider/react'
 
 import 'keen-slider/keen-slider.min.css'
-import { CaretLeft, CaretRight, Handbag } from 'phosphor-react'
+import {  CaretRight, Handbag } from 'phosphor-react'
 import { stripe } from '../lib/stripe'
 import { GetStaticProps } from 'next'
 
@@ -27,7 +27,8 @@ export default function Home({ products }: HomeProps) {
   const [countSlider, setCountSlider] = useState(1);
   const [sliderRef, instanceRef] = useKeenSlider({
     slides: {
-      perView: 1.5,
+      perView: 2,
+      origin: 'center',
       spacing: 48,
     },
   })
@@ -55,7 +56,7 @@ export default function Home({ products }: HomeProps) {
       {countSlider !== 1 &&  
         <ButtonLeft>
           <button onClick={handlePrevProduct}>
-            <CaretRight size={40} weight="bold" />
+            <CaretRight size={50} />
           </button>
         </ButtonLeft>
       }
@@ -87,7 +88,7 @@ export default function Home({ products }: HomeProps) {
       {countSlider !== products.length && 
         <ButtonRight>
             <button onClick={handleNextProduct}>
-              <CaretRight size={40} weight="bold" />
+              <CaretRight size={50} />
             </button>
         </ButtonRight>
       }
@@ -95,6 +96,7 @@ export default function Home({ products }: HomeProps) {
     </>
   )
 }
+
 
 export const getStaticProps: GetStaticProps = async () => {
   const response = await stripe.products.list({

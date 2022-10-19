@@ -2,11 +2,7 @@ import { styled } from '..';
 
 export const HomeContainer = styled('main', {
     display: 'flex',
-    width: '100%',
-    justifyContent: 'center',
-    paddingLeft: '16rem',
     minHeight: 656,
-
 })
 
 export const Product = styled('div', {
@@ -19,6 +15,8 @@ export const Product = styled('div', {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+
+    
 
     img: {
         objectFit: 'cover',

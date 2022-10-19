@@ -1,3 +1,4 @@
+import * as Dialog from '@radix-ui/react-dialog';
 import { styled } from '..';
 
 export const Container = styled('div', {
@@ -16,13 +17,28 @@ export const Header = styled('header', {
 
     display: 'flex',
     justifyContent: 'space-between',
+})
 
-    button: {
+export const Cart = styled(Dialog.Trigger, {
         cursor: 'pointer',
         padding: '0.75rem',
         border: 'none',
         background: '$gray800',
         borderRadius: '6px',
         color: '$gray500',
-    }
 })
+
+export const Overlay = styled(Dialog.Overlay, {
+    position: 'fixed',
+    width: 'auto',
+    height: '100vh',
+    inset: '0',
+})
+
+export const CloseButton = styled(Dialog.Close, {
+
+})
+
+export const Content = styled(Dialog.Content, {})
+
+export const ItensContainer = styled('div', {})
