@@ -1,10 +1,12 @@
 import { AppProps } from 'next/app'
 import Image from 'next/future/image'
-import { Cart, CloseButton, Container, Content, Header, ItensContainer, Overlay } from '../styles/pages/app'
+import { Cart, CloseButton, Container, Content, Header, ProductImageContainer, Product, ProductContainer, ProductDescription, Overlay, SummaryProduct, ButtonBuyProduct, TitleCart } from '../styles/pages/app'
 import logoImg from '../assets/logo.svg'
 import { globalStyles } from '../styles/global';
 import { Handbag, X } from 'phosphor-react';
 import * as Dialog from '@radix-ui/react-dialog';
+
+import imgProduct from '../assets/1.png'
 
 globalStyles();
 
@@ -28,11 +30,76 @@ export default function MyApp({ Component, pageProps }: AppProps) {
                 <X size={32} />
               </CloseButton>
 
-              <Dialog.Title>Sacola de compras</Dialog.Title>
+              <TitleCart>Sacola de compras</TitleCart>
 
-              <ItensContainer>
+              <ProductContainer>
+                <Product>
+                  <ProductImageContainer>
+                    <Image src={imgProduct} alt="" width={94} height={94}/>
+                  </ProductImageContainer>
+
+                  <ProductDescription>
+                    <h3>Camiseta Beyond the Limits</h3>
+                    <p>R$ 79,90</p>
+                    <button>Remover</button>
+                  </ProductDescription>
+                </Product>
+
+                <Product>
+                  <ProductImageContainer>
+                    <Image src={imgProduct} alt="" width={94} height={94}/>
+                  </ProductImageContainer>
+
+                  <ProductDescription>
+                    <h3>Camiseta Beyond the Limits</h3>
+                    <p>R$ 79,90</p>
+                    <button>Remover</button>
+                  </ProductDescription>
+                </Product>
+
+                <Product>
+                  <ProductImageContainer>
+                    <Image src={imgProduct} alt="" width={94} height={94}/>
+                  </ProductImageContainer>
+
+                  <ProductDescription>
+                    <h3>Camiseta Beyond the Limits</h3>
+                    <p>R$ 79,90</p>
+                    <button>Remover</button>
+                  </ProductDescription>
+                </Product>
+
+                <Product>
+                  <ProductImageContainer>
+                    <Image src={imgProduct} alt="" width={94} height={94}/>
+                  </ProductImageContainer>
+
+                  <ProductDescription>
+                    <h3>Camiseta Beyond the Limits</h3>
+                    <p>R$ 79,90</p>
+                    <button>Remover</button>
+                  </ProductDescription>
+                </Product>
+
                 
-              </ItensContainer>
+
+              </ProductContainer>
+
+              <SummaryProduct>
+                <div>
+                  <p>Quantidade</p>
+                  <span>3 itens</span>
+                </div>
+
+                <div>
+                  <h4>Valor total</h4>
+                  <strong>R$ 270,00</strong>
+                </div>
+              </SummaryProduct>
+
+              <ButtonBuyProduct>
+                  Finalizar compra
+              </ButtonBuyProduct>
             </Content>
           </Dialog.Root>
         </Header>
