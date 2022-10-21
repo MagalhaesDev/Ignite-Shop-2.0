@@ -2,27 +2,33 @@ import Stripe from 'stripe'
 import {  GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { stripe } from '../../lib/stripe';
 import { ImageContainer, ProductContainer, ProductDetails } from '../../styles/pages/product';
-import * as Dialog from '@radix-ui/react-dialog'
+import { CartContext } from '../../contexts/CartContext';
+import { formatPrice } from '../../utils/format';
+
+interface ProductItem {
+    id: string;
+    name: string;
+    imageUrl: string;
+    price: string;
+    description: string;
+    defaultPriceId: string;
+}
 
 interface ProductProps {
-    product: {
-        id: string;
-        name: string;
-        imageUrl: string;
-        price: string;
-        description: string;
-        defaultPriceId: string;
-    }
+    product: ProductItem
 }
 
 export default function Product({product}: ProductProps) {
     const [ isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
+    const { addProductCart } = useContext(CartContext)
+    
 
-    function handleBuyProduct() {
 
+    function handleAddProductCart({id, name, imageUrl, price}: ProductItem) {
+        addProductCart({id, name, imageUrl, price})
     }
 
     return (
@@ -37,11 +43,11 @@ export default function Product({product}: ProductProps) {
             </ImageContainer>
             <ProductDetails>
                 <h1>{product.name}</h1>
-                <span>{product.price}</span>
+                <span>{formatPrice(Number(product.price) / 100)}</span>
               
                 <p>{product.description}</p>
 
-                <button disabled={isCreatingCheckoutSession} onClick={handleBuyProduct}>Colocar na sacola</button>
+                <button disabled={isCreatingCheckoutSession} onClick={() => handleAddProductCart(product)}>Colocar na sacola</button>
             </ProductDetails>
           </ProductContainer>
         </>
@@ -73,10 +79,7 @@ export const getStaticProps: GetStaticProps<any, {id: string}> = async ({ params
                 id: product.id,
                 name: product.name,
                 imageUrl: product.images[0],
-                price: new Intl.NumberFormat('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL'
-                }).format(price.unit_amount / 100),
+                price: price.unit_amount,
                 description: product.description,
                 defaultPriceId: price.id,
             }

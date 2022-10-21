@@ -37,14 +37,12 @@ export default function Home({ products }: HomeProps) {
     instanceRef.current.next()
     setCountSlider(countSlider + 1)
 
-    console.log(countSlider)
   }
 
   function handlePrevProduct() {
     instanceRef.current.prev()
     setCountSlider(countSlider - 1)
 
-    console.log(countSlider)
   }
 
   return (
