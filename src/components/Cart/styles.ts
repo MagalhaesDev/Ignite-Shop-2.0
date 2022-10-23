@@ -126,3 +126,22 @@ export const CloseButton = styled(Dialog.Close, {
     background: 'transparent',
     color: '$gray500'
 })
+
+export const EmptyCart = styled('div', {
+    height: '100%',
+    display: 'flex',
+    gap: '1rem',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    h4: {
+        fontSize: '1.5rem',
+        color: '$gray100'
+    },
+
+    p: {
+        fontSize: '1rem',
+        color: '$gray500'
+    }
+})

@@ -1,8 +1,8 @@
-import { ButtonBuyProduct, CloseButton, Content, Overlay, Product, ProductContainer, ProductDescription, ProductImageContainer, SummaryProduct, TitleCart } from "./styles";
+import { ButtonBuyProduct, CloseButton, Content, EmptyCart, Overlay, Product, ProductContainer, ProductDescription, ProductImageContainer, SummaryProduct, TitleCart } from "./styles";
 import Image from 'next/future/image'
 import { useContext, useState } from "react";
 import { CartContext } from "../../contexts/CartContext";
-import { X } from "phosphor-react";
+import { Handbag, X } from "phosphor-react";
 import { formatPrice } from "../../utils/format";
 import { keyframes } from "@stitches/react";
 
@@ -34,20 +34,29 @@ export function Cart({closeCartShopping, animation}:CartProps) {
         <TitleCart>Sacola de compras</TitleCart>
  
         <ProductContainer>
-  
-         {products.map(product => ( 
-           <Product key={product.id}>
-             <ProductImageContainer>
-               <Image src={product.imageUrl} alt="" width={94} height={94}/>
-             </ProductImageContainer>
- 
-             <ProductDescription>
-               <h3>{product.name}</h3>
-               <p>{formatPrice(Number(product.price) / 100)}</p>
-               <button onClick={() => handleRemoveProductCart(product.id)}>Remover</button>
-             </ProductDescription>
-           </Product>
-         ))}
+
+          {
+            products.length === 0 ?
+            <EmptyCart>
+              <Handbag size={48} weight="bold" />
+              <h4>Sacola está vazia</h4>
+              <p>Adicione algum produto !</p>
+            </EmptyCart>
+            :
+            products.map(product => ( 
+              <Product key={product.id}>
+                <ProductImageContainer>
+                  <Image src={product.imageUrl} alt="" width={94} height={94}/>
+                </ProductImageContainer>
+    
+                <ProductDescription>
+                  <h3>{product.name}</h3>
+                  <p>{formatPrice(Number(product.price) / 100)}</p>
+                  <button onClick={() => handleRemoveProductCart(product.id)}>Remover</button>
+                </ProductDescription>
+              </Product>
+            ))
+          }
 
         </ProductContainer>
 
