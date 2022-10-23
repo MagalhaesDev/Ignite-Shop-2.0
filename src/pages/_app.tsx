@@ -8,13 +8,41 @@ import * as Dialog from '@radix-ui/react-dialog';
 
 import Link from 'next/link';
 import { CartContext, CartContextProvider } from '../contexts/CartContext';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Cart } from '../components/Cart';
+import { keyframes } from '@stitches/react';
 
 globalStyles();
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  const { products } = useContext(CartContext)
+  const [cartShoppingIsOpen, setCartShoppingIsOpen] = useState(false)
+  const [animation, setAnimation] = useState('');
+
+  const openAnimation = keyframes({
+    '0%': { transform: 'translateX(100%)' },
+    '100%': { transform: 'translateX(0%)' },
+  });
+
+  const closeAnimation = keyframes({
+    '0%': { transform: 'translateX(0%)' },
+    '100%': { transform: 'translateX(100%)' },
+  });
+
+
+  function openCartShopping() {
+    setAnimation(`${openAnimation} 200ms`)
+
+    setCartShoppingIsOpen(true)
+  }
+
+
+  function closeCartShopping() {
+    setAnimation(`${closeAnimation} 200ms`)
+
+    setTimeout(() => {
+      setCartShoppingIsOpen(false)
+    }, 200)
+  }
 
   return (
       <CartContextProvider>
@@ -26,12 +54,12 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
           <Dialog.Root>
             <CartIcon asChild>
-              <button>
+              <button onClick={openCartShopping}>
                  <Handbag size={24} weight="bold" />
               </button>
             </CartIcon>
 
-            <Cart />
+            <Cart  animation={animation} closeCartShopping={closeCartShopping}/>
           
           </Dialog.Root>
         </Header>

@@ -1,34 +1,37 @@
 import { ButtonBuyProduct, CloseButton, Content, Overlay, Product, ProductContainer, ProductDescription, ProductImageContainer, SummaryProduct, TitleCart } from "./styles";
 import Image from 'next/future/image'
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../../contexts/CartContext";
 import { X } from "phosphor-react";
 import { formatPrice } from "../../utils/format";
+import { keyframes } from "@stitches/react";
+
+interface CartProps {
+  closeCartShopping: () => void;
+  animation: string
+}
 
 
-export function Cart() {
+export function Cart({closeCartShopping, animation}:CartProps) {
     const { products } = useContext(CartContext)
-
     const amountTotal = products.reduce((acc, item) => {
       return acc += Number(item.price)
     }, 0)
-
-  
 
     return (
      <>
         <Overlay />
 
-        <Content>
-        <CloseButton>
+        <Content  style={{ animation: `${animation}` }}>
+        <CloseButton onClick={closeCartShopping}>
           <X size={32} />
         </CloseButton>
 
         <TitleCart>Sacola de compras</TitleCart>
-
+ 
         <ProductContainer>
   
-         {products.map(product => (
+         {products.map(product => ( 
            <Product key={product.id}>
              <ProductImageContainer>
                <Image src={product.imageUrl} alt="" width={94} height={94}/>

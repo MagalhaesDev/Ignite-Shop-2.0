@@ -24,7 +24,7 @@ export const TitleCart = styled(Dialog.Title, {
     marginBottom: '2rem',
 })
 
-export const ProductContainer = styled('div', {
+export const ProductContainer = styled('aside', {
     display: 'flex',
     flexDirection: 'column',
     gap: '1.5rem',
