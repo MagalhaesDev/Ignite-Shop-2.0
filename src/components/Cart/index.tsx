@@ -13,10 +13,14 @@ interface CartProps {
 
 
 export function Cart({closeCartShopping, animation}:CartProps) {
-    const { products } = useContext(CartContext)
+    const { products, removeProductCart } = useContext(CartContext)
     const amountTotal = products.reduce((acc, item) => {
       return acc += Number(item.price)
     }, 0)
+
+    function handleRemoveProductCart(id: string) {
+      removeProductCart(id)
+    }
 
     return (
      <>
@@ -40,7 +44,7 @@ export function Cart({closeCartShopping, animation}:CartProps) {
              <ProductDescription>
                <h3>{product.name}</h3>
                <p>{formatPrice(Number(product.price) / 100)}</p>
-               <button>Remover</button>
+               <button onClick={() => handleRemoveProductCart(product.id)}>Remover</button>
              </ProductDescription>
            </Product>
          ))}
