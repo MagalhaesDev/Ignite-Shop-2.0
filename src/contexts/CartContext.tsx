@@ -4,13 +4,15 @@ interface ProductCart {
     id: string;
     name: string;
     imageUrl: string;
-    price: string
+    price: string;
+    defaultPriceId: string;
+    keyValue: string;
 }
 
 interface CartContextType {
     addProductCart: (product: ProductCart) => void;
     removeProductCart: (id: string) => void;
-    products: ProductCart[],
+    cart: ProductCart[],
 }
 
 interface CartProviderProps {
@@ -20,21 +22,23 @@ interface CartProviderProps {
 export const CartContext = createContext({} as CartContextType)
 
 export function CartContextProvider({children}: CartProviderProps) {
-    const [products, setProducts] = useState<ProductCart[]>([])
+    const [cart, setProducts] = useState<ProductCart[]>([])
     
-    function addProductCart({id, name, imageUrl, price}: ProductCart) {
+    function addProductCart({id, name, imageUrl, price, defaultPriceId, keyValue}: ProductCart) {
         const newProduct = {
             id,
+            keyValue,
             name,
             imageUrl,
-            price
+            price,
+            defaultPriceId
         }
 
-        setProducts([...products, newProduct])
+        setProducts([...cart, newProduct])
     }
 
     function removeProductCart(id: string) {
-        const updateProduct = [...products]
+        const updateProduct = [...cart]
 
         const productIndex = updateProduct.findIndex(product => product.id === id)
 
@@ -44,7 +48,7 @@ export function CartContextProvider({children}: CartProviderProps) {
     }
 
     return (
-        <CartContext.Provider value={{addProductCart, products, removeProductCart}}>
+        <CartContext.Provider value={{addProductCart, cart, removeProductCart}}>
             {children}
         </CartContext.Provider>
     )

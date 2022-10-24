@@ -5,6 +5,7 @@ import { CartContext } from "../../contexts/CartContext";
 import { Handbag, X } from "phosphor-react";
 import { formatPrice } from "../../utils/format";
 import { keyframes } from "@stitches/react";
+import axios from "axios";
 
 interface CartProps {
   closeCartShopping: () => void;
@@ -13,13 +14,45 @@ interface CartProps {
 
 
 export function Cart({closeCartShopping, animation}:CartProps) {
-    const { products, removeProductCart } = useContext(CartContext)
-    const amountTotal = products.reduce((acc, item) => {
+    const { cart, removeProductCart } = useContext(CartContext)
+    const [ isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
+
+    console.log(cart)
+
+    const filteredPriceIdCart = cart.map(item => {
+      return {
+        price: item.defaultPriceId,
+        quantity: 1
+      }
+    })
+
+    const amountTotal = cart.reduce((acc, item) => {
       return acc += Number(item.price)
     }, 0)
 
+
     function handleRemoveProductCart(id: string) {
       removeProductCart(id)
+    }
+
+    async function handleBuyProduct() {
+      try {
+        setIsCreatingCheckoutSession(true);
+
+        const response = await axios.post('/api/checkout', {
+          pricesId: filteredPriceIdCart
+        })
+
+        const { checkoutUrl } = response.data;
+
+        window.location.href = checkoutUrl
+      }
+
+      catch (err) {
+        setIsCreatingCheckoutSession(false);
+
+        alert('Falha ao redirecionar ao checkout!');
+      }
     }
 
     return (
@@ -36,15 +69,15 @@ export function Cart({closeCartShopping, animation}:CartProps) {
         <ProductContainer>
 
           {
-            products.length === 0 ?
+            cart.length === 0 ?
             <EmptyCart>
               <Handbag size={48} weight="bold" />
               <h4>Sacola está vazia</h4>
               <p>Adicione algum produto !</p>
             </EmptyCart>
             :
-            products.map(product => ( 
-              <Product key={product.id}>
+            cart.map(product => ( 
+              <Product key={product.keyValue}>
                 <ProductImageContainer>
                   <Image src={product.imageUrl} alt="" width={94} height={94}/>
                 </ProductImageContainer>
@@ -52,7 +85,7 @@ export function Cart({closeCartShopping, animation}:CartProps) {
                 <ProductDescription>
                   <h3>{product.name}</h3>
                   <p>{formatPrice(Number(product.price) / 100)}</p>
-                  <button onClick={() => handleRemoveProductCart(product.id)}>Remover</button>
+                  <button onClick={() => handleRemoveProductCart(product.keyValue)}>Remover</button>
                 </ProductDescription>
               </Product>
             ))
@@ -63,7 +96,7 @@ export function Cart({closeCartShopping, animation}:CartProps) {
         <SummaryProduct>
           <div>
             <p>Quantidade</p>
-            <span>{products.length === 1 ? `${products.length} item` : `${products.length} itens`}</span>
+            <span>{cart.length === 1 ? `${cart.length} item` : `${cart.length} itens`}</span>
           </div>
 
           <div>
@@ -72,7 +105,7 @@ export function Cart({closeCartShopping, animation}:CartProps) {
           </div>
        </SummaryProduct>
 
-       <ButtonBuyProduct>
+       <ButtonBuyProduct onClick={handleBuyProduct}>
           Finalizar compra
        </ButtonBuyProduct>
        </Content>

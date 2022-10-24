@@ -7,6 +7,8 @@ import { stripe } from '../../lib/stripe';
 import { ImageContainer, ProductContainer, ProductDetails } from '../../styles/pages/product';
 import { CartContext } from '../../contexts/CartContext';
 import { formatPrice } from '../../utils/format';
+import { v4 as uuidv4 } from "uuid";
+
 
 interface ProductItem {
     id: string;
@@ -27,8 +29,10 @@ export default function Product({product}: ProductProps) {
     
 
 
-    function handleAddProductCart({id, name, imageUrl, price}: ProductItem) {
-        addProductCart({id, name, imageUrl, price})
+    function handleAddProductCart({id, name, imageUrl, price, defaultPriceId}: ProductItem) {
+        const keyValue = uuidv4()
+
+        addProductCart({id, name, imageUrl, price, defaultPriceId, keyValue})
     }
 
     return (

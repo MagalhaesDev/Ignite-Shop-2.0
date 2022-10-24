@@ -15,7 +15,6 @@ import { keyframes } from '@stitches/react';
 globalStyles();
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  const [cartShoppingIsOpen, setCartShoppingIsOpen] = useState(false)
   const [animation, setAnimation] = useState('');
 
   const openAnimation = keyframes({
@@ -32,16 +31,12 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   function openCartShopping() {
     setAnimation(`${openAnimation} 200ms`)
 
-    setCartShoppingIsOpen(true)
   }
 
 
   function closeCartShopping() {
     setAnimation(`${closeAnimation} 200ms`)
 
-    setTimeout(() => {
-      setCartShoppingIsOpen(false)
-    }, 200)
   }
 
   return (
