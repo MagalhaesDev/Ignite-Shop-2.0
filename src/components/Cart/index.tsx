@@ -17,7 +17,6 @@ export function Cart({closeCartShopping, animation}:CartProps) {
     const { cart, removeProductCart } = useContext(CartContext)
     const [ isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
 
-    console.log(cart)
 
     const filteredPriceIdCart = cart.map(item => {
       return {

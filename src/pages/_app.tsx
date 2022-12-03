@@ -7,8 +7,8 @@ import { Handbag, X } from 'phosphor-react';
 import * as Dialog from '@radix-ui/react-dialog';
 
 import Link from 'next/link';
-import { CartContext, CartContextProvider } from '../contexts/CartContext';
-import { useContext, useState } from 'react';
+import { CartContextProvider } from '../contexts/CartContext';
+import { useState } from 'react';
 import { Cart } from '../components/Cart';
 import { keyframes } from '@stitches/react';
 
