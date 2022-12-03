@@ -39,18 +39,24 @@ Here are the technologies used in this project.
 
 ### 3 - Cart
 
-* This modal allows the user to insert new transactions into the table, it contains a validation system and also always aims for accessibility.
+* This functionality was developed totally in SPA, containing the information and quantities of products added through contexts, when finalizing the purchase the user will be redirected to the payment page if everything happens the way the functionality asks for.
 
 ![Cart](https://github.com/MagalhaesDev/Ignite-Shop-2.0/blob/main/src/assets/img-readme/cart.png)
 
 ### 4 - Stripe 
 
-*  This route displays the tasks already completed, in progress and those interrupted
+*  Stripe is a technology that facilitates the programmer's work in relation to the form and payment of the product.
 
-![History](https://github.com/MagalhaesDev/ignite-timer/blob/main/src/assets/img-readme/history.png)
+![Stripe](https://github.com/MagalhaesDev/Ignite-Shop-2.0/blob/main/src/assets/img-readme/stripe.png)
+
+### 5 - Success 
+
+*  If the user passes all validation and registers the payment data he will be redirected to a success route, containing a thank you message and order information.
+
+![Success](https://github.com/MagalhaesDev/Ignite-Shop-2.0/blob/main/src/assets/img-readme/success.png)
 
 ## Links
-  - Repository: https://github.com/MagalhaesDev/ignite-timer
+  - Repository: https://github.com/MagalhaesDev/Ignite-Shop-2.0
     - In case of sensitive bugs like security vulnerabilities, please contact
       mateusmagalhaesemidio@gmail.com directly instead of using issue tracker. We value your effort
       to improve the security and privacy of this project!
